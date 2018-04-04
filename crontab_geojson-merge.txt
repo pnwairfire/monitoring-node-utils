@@ -8,4 +8,6 @@
 ###############################################################################
 
 # Merge three geojson files into one every 10 minutes
-*/10 * * * *    docker run --rm -v /data/monitoring:/monitoring/v4/data -w /monitoring/v4/data/latest/geojson monitoring-node-utils geojson-merge airnow_PM2.5_latest10.geojson airsis_PM2.5_latest10.geojson wrcc_PM2.5_latest10.geojson > PM2.5_latest10.geojson
+# NOTE:  This part is run inside the docker container: "geojson-merge airnow~ airsis~ wrcc~"
+# NOTE:  This part is run on the host machine: "> /data/monitoring/latest/geojson/PM2.5_latest10.geojson"
+*/10 * * * *    docker run --rm -v /data/monitoring:/monitoring/v4/data -w /monitoring/v4/data/latest/geojson monitoring-node-utils geojson-merge airnow_PM2.5_latest10.geojson airsis_PM2.5_latest10.geojson wrcc_PM2.5_latest10.geojson > /data/monitoring/latest/geojson/PM2.5_latest10.geojson
